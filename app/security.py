@@ -19,6 +19,10 @@ class InputSanitizer:
         r"pretend\s+you\s+are",
         r"act\s+as\s+(if\s+)?you",
         r"bypass\s+(all\s+)?restrictions",
+        r"\bdan\b",
+        r"do\s+anything\s+now",
+        r"developer\s+mode",
+        r"jailbreak",
     ]
 
     def __init__(self):
@@ -34,8 +38,7 @@ class InputSanitizer:
     def sanitize(self, text: str) -> str:
         """Sanitize the input text by removing suspicious patterns."""
         # Remove excessive dashes and equal signs that might be used to break prompts
-        text = re.sub(r"[-]{3,}", "",text)
-        text = re.sub(r"[=]{3,}", "",text)
+        text = re.sub(r"(#{3,}|-{3,}|={3,})", "", text)
         
         # Escape special character that might confuse the model
         text = text.replace("{{","{ {").replace("}}","} }")
@@ -70,11 +73,11 @@ class PIIDetector:
     """Detect and mask potential Personally Identifiable Information (PII) in user input."""
 
     PII_PATTERNS = {
-        "email": r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b",
-        "phone": r"\b\d{3}[-.\s]??\d{3}[-.\s]??\d{4}\b",
-        "ssn": r"\b\d{3}-\d{2}-\d{4}\b",
-        "credit_card": r"\b(?:\d[ -]*?){13,16}\b",
-        "ip_address": r"\b(?:\d{1,3}\.){3}\d{1,3}\b"
+        "EMAIL": r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b",
+        "PHONE": r"\b\d{3}[-.\s]??\d{3}[-.\s]??\d{4}\b",
+        "SSN": r"\b\d{3}-\d{2}-\d{4}\b",
+        "CREDIT_CARD": r"\b(?:\d[ -]*?){13,16}\b",
+        "IP_ADDRESS": r"\b(?:\d{1,3}\.){3}\d{1,3}\b"
     }
 
     def __init__(self):

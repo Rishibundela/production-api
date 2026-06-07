@@ -50,7 +50,7 @@ class ResponseCache:
         return {
             "hits": self._hits,
             "misses": self._misses,
-            "hit_rate": f"{hit_rate:.1%}",
+            "hit_rate": round(hit_rate, 4),
             "cached_entries": len(self._cache),
         }
 
