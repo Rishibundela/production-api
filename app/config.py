@@ -21,7 +21,7 @@ class Settings(BaseSettings):
 
     # App Config
     APP_NAME: str = "Production LangGraph API"
-    APP_VERSION: str = "1.0.0"
+    APP_VERSION: str = "1.1.0"
     APP_ENV: str = "development"
     LOG_LEVEL: str = "INFO"
     RATE_LIMIT: str = "20/minute"
